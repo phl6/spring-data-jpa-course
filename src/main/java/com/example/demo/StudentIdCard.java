@@ -38,6 +38,13 @@ public class StudentIdCard {
     )
     private String cardNumber;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "student_id", //local table column name
+            referencedColumnName = "id" //target table column name
+    )
+    private Student student;
+
     public StudentIdCard() {
     }
 
