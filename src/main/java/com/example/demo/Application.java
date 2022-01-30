@@ -21,16 +21,17 @@ public class Application {
     @Bean
     CommandLineRunner commandLineRunner(StudentRepository studentRepository){
         return args -> {
-//            generateRandomStudents(studentRepository);
-//            sorting(studentRepository);
 
-            PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("firstName").ascending());
-            Page<Student> page =  studentRepository.findAll(pageRequest);
-            System.out.println(page);
         };
     }
 
-    private void sorting(StudentRepository studentRepository) {
+    private Page<Student> paging(StudentRepository studentRepository) { //Page<Student> page = paging(studentRepository);
+        PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("firstName").ascending());
+        Page<Student> page =  studentRepository.findAll(pageRequest);
+        return page;
+    }
+
+    private void sorting(StudentRepository studentRepository) { //sorting(studentRepository);
         Sort sort = Sort.by("firstName").ascending()
                         .and(Sort.by("age").descending());
 
@@ -38,7 +39,7 @@ public class Application {
                 .forEach(student -> System.out.println(student.getFirstName() + " " + student.getAge())) ;
     }
 
-    private void generateRandomStudents(StudentRepository studentRepository) {
+    private void generateRandomStudents(StudentRepository studentRepository) { //generateRandomStudents(studentRepository);
         Faker faker = new Faker();
         for(int i = 0; i < 20; i++){
             String firstName = faker.name().firstName();
