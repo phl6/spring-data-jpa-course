@@ -38,18 +38,23 @@ public class StudentIdCard {
     )
     private String cardNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL) //allow save student when saving the studentIdCard
     @JoinColumn(
             name = "student_id", //local table column name
             referencedColumnName = "id" //target table column name
     )
-    private Student student;
+    private Student student; //target entity
 
     public StudentIdCard() {
     }
 
     public StudentIdCard(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public StudentIdCard(String cardNumber, Student student) {
+        this.cardNumber = cardNumber;
+        this.student = student;
     }
 
     public Long getId() {
