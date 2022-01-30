@@ -38,7 +38,10 @@ public class StudentIdCard {
     )
     private String cardNumber;
 
-    @OneToOne(cascade = CascadeType.ALL) //allow save student when saving the studentIdCard
+    @OneToOne(
+            cascade = CascadeType.ALL, //allow save student when saving the studentIdCard
+            fetch = FetchType.EAGER // one to one default is EAGER, it fetches whole target table, ONE to MANY or M:N default are LAZY
+    )
     @JoinColumn(
             name = "student_id", //local table column name
             referencedColumnName = "id" //target table column name
@@ -63,5 +66,14 @@ public class StudentIdCard {
 
     public String getCardNumber() {
         return cardNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentIdCard{" +
+                "id=" + id +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", student=" + student +
+                '}';
     }
 }
