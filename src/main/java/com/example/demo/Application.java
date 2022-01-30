@@ -34,6 +34,7 @@ public class Application {
 //            StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
 //            studentIdCardRepository.save(studentIdCard);
 
+            studentRepository.findById(89L).ifPresent(System.out::println);
             studentIdCardRepository.findById(1L).ifPresent(System.out::println);
             //StudentIdCard{id=1, cardNumber='123456789', student=Student{id=89, firstName='Adolfo', lastName='Oberbrunner', email='Adolfo.Oberbrunner@amigoscode.edu', age=41}}
         };
