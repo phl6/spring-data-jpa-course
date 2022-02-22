@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.github.javafaker.Faker;
+import com.github.javafaker.IdNumber;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class Application {
@@ -33,11 +36,6 @@ public class Application {
 //                                );
 //            StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
 //            studentIdCardRepository.save(studentIdCard);
-
-//            studentRepository.findById(89L).ifPresent(System.out::println);
-//            studentIdCardRepository.findById(1L).ifPresent(System.out::println);
-            studentRepository.deleteById(89L);
-            //StudentIdCard{id=1, cardNumber='123456789', student=Student{id=89, firstName='Adolfo', lastName='Oberbrunner', email='Adolfo.Oberbrunner@amigoscode.edu', age=41}}
         };
     }
 

@@ -53,7 +53,7 @@ public class Student {
     private Integer age;
 
     @OneToOne(
-            mappedBy = "student",
+            mappedBy = "student", //bi-directional relationship
             orphanRemoval = true
     )
     private StudentIdCard studentIdCard;
@@ -71,7 +71,6 @@ public class Student {
     public Long getId() {
         return id;
     }
-
 
     public void setId(Long id) {
         this.id = id;

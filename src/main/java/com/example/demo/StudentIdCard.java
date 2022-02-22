@@ -8,10 +8,10 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Table(
         name = "student_id_card",
         uniqueConstraints={
-        @UniqueConstraint(
-                name = "student_id_card_number_unique",
-                columnNames = "card_number"
-        )
+                @UniqueConstraint(
+                        name = "student_id_card_number_unique",
+                        columnNames = "card_number"
+                )
 })
 public class StudentIdCard {
 
@@ -44,7 +44,8 @@ public class StudentIdCard {
     )
     @JoinColumn(
             name = "student_id", //local table column name
-            referencedColumnName = "id" //target table column name
+            referencedColumnName = "id", //target table column name
+            foreignKey = @ForeignKey(name = "student_id_card_student_id_fk") // setting name of foreign key instead of random name created by jpa
     )
     private Student student; //target entity
 
