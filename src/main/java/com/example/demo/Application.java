@@ -27,26 +27,22 @@ public class Application {
             String lastName = faker.name().lastName();
             String email = String.format("%s.%s@amigoscode.edu", firstName, lastName);
             Student student =  new Student(
-                                        firstName,
-                                        lastName,
-                                        email,
-                                        faker.number().numberBetween(17, 55)
-                                );
-            student.addBook(new Book("Hi UA", LocalDateTime.now()));
-            student.addBook(new Book("omg COVID", LocalDateTime.now().minusYears(1)));
+                    firstName,
+                    lastName,
+                    email,
+                    faker.number().numberBetween(17, 55)
+            );
+            student.addBook(new Book(faker.book().title(), LocalDateTime.now()));
+            student.addBook(new Book(faker.book().title(), LocalDateTime.now().minusYears(1)));
 
-            StudentIdCard studentIdCard = new StudentIdCard("15555", student);
+            String studentCardNumber = faker.number().digits(5);
+            StudentIdCard studentIdCard = new StudentIdCard(studentCardNumber, student);
 
             student.setStudentIdCard(studentIdCard);
+            student.enrolToCourse(new Course("Computer Science", "IT"));
+            student.enrolToCourse(new Course("Software Engineering", "IT"));
 
             studentRepository.save(student);
-
-            studentRepository.findById(31L).ifPresent(s -> {
-                System.out.println("fetch book lazy...");
-                List<Book> books = student.getBooks();
-                System.out.println("Books of studentId " + s.getId() + " are: " + books);
-            });
-
 
         };
     }

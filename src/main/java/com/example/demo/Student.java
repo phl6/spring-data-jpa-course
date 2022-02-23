@@ -70,6 +70,20 @@ public class Student {
     )
     private final List<Book> books = new ArrayList<>();
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinTable(
+            name = "enrolment", //name of through table
+            joinColumns = @JoinColumn(
+                    name = "student_id",
+                    foreignKey = @ForeignKey(name = "enrolment_student_id_fk")
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "course_id",
+                    foreignKey = @ForeignKey(name = "enrolment_course_id_fk")
+            )
+    )
+    private List<Course> courses = new ArrayList<>();
+
     public Student() {
     }
 
@@ -124,6 +138,10 @@ public class Student {
         return books;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
     public void addBook(Book book){
         if(!this.books.contains(book)){
             this.books.add(book);
@@ -136,6 +154,16 @@ public class Student {
             this.books.remove(book);
             book.setStudent(null);
         }
+    }
+
+    public void enrolToCourse(Course course){
+        courses.add(course);
+        course.getStudents().add(this);
+    }
+
+    public void unEnrolToCourse(Course course){
+        courses.remove(course);
+        course.getStudents().remove(this);
     }
 
     public StudentIdCard getStudentIdCard() {
