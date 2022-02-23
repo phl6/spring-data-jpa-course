@@ -15,12 +15,18 @@ public class Enrolment { //through table of student <-> enrolment <-> course
     //Composite Key!!!
     @ManyToOne
     @MapsId("studentId") // reference to EnrolmentId (through table)'s studentId
-    @JoinColumn(name = "student_id") //actual attribute in db
+    @JoinColumn(
+            name = "student_id", //actual attribute in db
+            foreignKey = @ForeignKey(name = "enrolment_student_id_fk")
+    )
     private Student student;
 
     @ManyToOne
     @MapsId("courseId")
-    @JoinColumn(name = "course_id")
+    @JoinColumn(
+            name = "course_id", //actual attribute in db
+            foreignKey = @ForeignKey(name = "enrolment_course_id_fk")
+    )
     private Course course;
 
     @Column(
