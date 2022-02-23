@@ -23,6 +23,12 @@ public class Enrolment { //through table of student <-> enrolment <-> course
     public Enrolment() {
     }
 
+    public Enrolment(EnrolmentId enrolmentId, Student student, Course course) {
+        this.enrolmentId = enrolmentId;
+        this.student = student;
+        this.course = course;
+    }
+
     public Enrolment(Student student, Course course) {
         this.student = student;
         this.course = course;

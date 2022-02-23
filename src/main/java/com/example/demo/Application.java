@@ -39,8 +39,19 @@ public class Application {
             StudentIdCard studentIdCard = new StudentIdCard(studentCardNumber, student);
 
             student.setStudentIdCard(studentIdCard);
-            student.enrolToCourse(new Course("Computer Science", "IT"));
-            student.enrolToCourse(new Course("Software Engineering", "IT"));
+//            student.enrolToCourse(new Course("Computer Science", "IT"));
+//            student.enrolToCourse(new Course("Software Engineering", "IT"));
+            student.addEnrolment(new Enrolment(
+                    new EnrolmentId(1L, 1L),
+                    student,
+                    new Course("Computer Science", "IT")
+            ));
+            student.addEnrolment(new Enrolment(
+                    new EnrolmentId(1L, 2L),
+                    student,
+                    new Course("Software Engineering", "IT")
+            ));
+
 
             studentRepository.save(student);
 
