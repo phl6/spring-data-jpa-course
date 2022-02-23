@@ -57,6 +57,7 @@ public class Student {
 
     @OneToOne(
             mappedBy = "student", //bi-directional relationship
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             orphanRemoval = true
     )
     private StudentIdCard studentIdCard;
@@ -135,6 +136,14 @@ public class Student {
             this.books.remove(book);
             book.setStudent(null);
         }
+    }
+
+    public StudentIdCard getStudentIdCard() {
+        return studentIdCard;
+    }
+
+    public void setStudentIdCard(StudentIdCard studentIdCard) {
+        this.studentIdCard = studentIdCard;
     }
 
     @Override

@@ -35,10 +35,13 @@ public class Application {
             student.addBook(new Book("Hi UA", LocalDateTime.now()));
             student.addBook(new Book("omg COVID", LocalDateTime.now().minusYears(1)));
 
-            StudentIdCard studentIdCard = new StudentIdCard("14444", student);
-            studentIdCardRepository.save(studentIdCard);
+            StudentIdCard studentIdCard = new StudentIdCard("15555", student);
 
-            studentRepository.findById(26L).ifPresent(s -> {
+            student.setStudentIdCard(studentIdCard);
+
+            studentRepository.save(student);
+
+            studentRepository.findById(31L).ifPresent(s -> {
                 System.out.println("fetch book lazy...");
                 List<Book> books = student.getBooks();
                 System.out.println("Books of studentId " + s.getId() + " are: " + books);
