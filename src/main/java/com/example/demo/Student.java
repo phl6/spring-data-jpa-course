@@ -2,6 +2,9 @@ package com.example.demo;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static javax.persistence.GenerationType.*;
 
 @Entity(name="Student")
@@ -58,6 +61,14 @@ public class Student {
     )
     private StudentIdCard studentIdCard;
 
+    @OneToMany(
+            mappedBy = "student", //the obj name in Book
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY //if EAGER, when fetching student, it also fetches Books of a student, while LAZY won't
+    )
+    private final List<Book> books = new ArrayList<>();
+
     public Student() {
     }
 
@@ -106,6 +117,24 @@ public class Student {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void addBook(Book book){
+        if(!this.books.contains(book)){
+            this.books.add(book);
+            book.setStudent(this);
+        }
+    }
+
+    public void removeBook(Book book){
+        if(this.books.contains(book)){
+            this.books.remove(book);
+            book.setStudent(null);
+        }
     }
 
     @Override

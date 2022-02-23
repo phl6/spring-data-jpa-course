@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.github.javafaker.Faker;
-import com.github.javafaker.IdNumber;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,9 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootApplication
 public class Application {
@@ -24,18 +22,29 @@ public class Application {
     @Bean
     CommandLineRunner commandLineRunner(StudentRepository studentRepository, StudentIdCardRepository studentIdCardRepository){
         return args -> {
-//            Faker faker = new Faker();
-//            String firstName = faker.name().firstName();
-//            String lastName = faker.name().lastName();
-//            String email = String.format("%s.%s@amigoscode.edu", firstName, lastName);
-//            Student student =  new Student(
-//                                        firstName,
-//                                        lastName,
-//                                        email,
-//                                        faker.number().numberBetween(17, 55)
-//                                );
-//            StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
-//            studentIdCardRepository.save(studentIdCard);
+            Faker faker = new Faker();
+            String firstName = faker.name().firstName();
+            String lastName = faker.name().lastName();
+            String email = String.format("%s.%s@amigoscode.edu", firstName, lastName);
+            Student student =  new Student(
+                                        firstName,
+                                        lastName,
+                                        email,
+                                        faker.number().numberBetween(17, 55)
+                                );
+            student.addBook(new Book("Hi UA", LocalDateTime.now()));
+            student.addBook(new Book("omg COVID", LocalDateTime.now().minusYears(1)));
+
+            StudentIdCard studentIdCard = new StudentIdCard("14444", student);
+            studentIdCardRepository.save(studentIdCard);
+
+            studentRepository.findById(26L).ifPresent(s -> {
+                System.out.println("fetch book lazy...");
+                List<Book> books = student.getBooks();
+                System.out.println("Books of studentId " + s.getId() + " are: " + books);
+            });
+
+
         };
     }
 

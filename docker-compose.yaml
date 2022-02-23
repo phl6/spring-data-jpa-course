@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  amigoscode_postgres:
+    image: postgres:latest
+    ports:
+      - "9000:5432"
+    volumes:
+      - amigoscodeJPA:/var/lib/amigoscode/data
+    environment:
+      POSTGRES_DB: amigoscode
+      POSTGRES_PASSWORD: amigoscode123
+volumes:
+  amigoscodeJPA: 
