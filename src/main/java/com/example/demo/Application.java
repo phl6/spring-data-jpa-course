@@ -44,12 +44,14 @@ public class Application {
             student.addEnrolment(new Enrolment(
                     new EnrolmentId(1L, 1L),
                     student,
-                    new Course("Computer Science", "IT")
+                    new Course("Computer Science", "IT"),
+                    LocalDateTime.now()
             ));
             student.addEnrolment(new Enrolment(
                     new EnrolmentId(1L, 2L),
                     student,
-                    new Course("Software Engineering", "IT")
+                    new Course("Software Engineering", "IT"),
+                    LocalDateTime.now().minusYears(1)
             ));
 
 

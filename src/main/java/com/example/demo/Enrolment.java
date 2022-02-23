@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "Enrolment")
 @Table(name = "enrolment")
@@ -20,18 +23,27 @@ public class Enrolment { //through table of student <-> enrolment <-> course
     @JoinColumn(name = "course_id")
     private Course course;
 
+    @Column(
+            name = "created_at",
+            nullable = false,
+            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
+    )
+    private LocalDateTime createdAt;
+
     public Enrolment() {
     }
 
-    public Enrolment(EnrolmentId enrolmentId, Student student, Course course) {
+    public Enrolment(EnrolmentId enrolmentId, Student student, Course course, LocalDateTime createdAt) {
         this.enrolmentId = enrolmentId;
         this.student = student;
         this.course = course;
+        this.createdAt = createdAt;
     }
 
-    public Enrolment(Student student, Course course) {
+    public Enrolment(Student student, Course course, LocalDateTime createdAt) {
         this.student = student;
         this.course = course;
+        this.createdAt = createdAt;
     }
 
     public EnrolmentId getEnrolmentId() {
@@ -56,5 +68,13 @@ public class Enrolment { //through table of student <-> enrolment <-> course
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
